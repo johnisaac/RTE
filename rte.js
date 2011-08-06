@@ -1,5 +1,5 @@
-function setRTE(rte){
-   var header, el, sel;
+function setRTE(rte, previewVisible ){
+   var header, el, sel, preview;
    
    function triggerAction(event){
       var e = window.event || event;
@@ -47,14 +47,25 @@ function setRTE(rte){
       }
    }
    
+   if ( previewVisible === true){
+      function showPreview(){
+         preview.innerHTML = content.innerHTML;
+      };
+   }
+   
    header = document.createElement("ul");
    content = document.createElement("div");
+   if ( previewVisible === true) preview = document.createElement("div");
+   
    content.id = "rteHeaderContent";
    content.name = "rteHeaderContent";
    
    header.setAttribute("id","rteHeader");
    header.setAttribute("name","rteHeader");
-   
+   if ( previewVisible === true){
+      preview.setAttribute("id","rtePreview");
+      preview.setAttribute("name","rtePreview");
+   }   
    header.b = createEl("B", header);
    header.i = createEl("I", header);
    header.u = createEl("U", header);
@@ -63,6 +74,10 @@ function setRTE(rte){
    rte.appendChild(header);
    rte.appendChild(content);
    
+   if ( previewVisible === true){
+      rte.appendChild(preview);
+      addHandler( rte, "keyup", showPreview);
+   }
    content.setAttribute("contenteditable", true);
    
    sel = window.getSelection();

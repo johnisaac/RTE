@@ -1,16 +1,16 @@
 #textbox{
   width: 400px;
-  min-height: 100px;
+  min-width: 400px;
+  max-width: 400px;
   border: 5px solid lightgrey;
-  padding: 5px;
 }
 
-#rteHeaderContent{
-  min-height: 98px;
+#rteHeaderContent, #rtePreview{
+  min-height: 140px;
   font: 14px arial, sans-serif;
   border: 1px solid grey;  
   clear:both;
-  
+  margin: 2px;
 }
 
 #rteHeaderContent:focus{
@@ -21,10 +21,12 @@
 #rteHeader li{
   list-style-type: none;
   float: left;
-  margin-right: 10px;
-  position: relative;
-  top: -20px;
-  left: -40px;
+  padding: 5px 3px;
+}
+
+#rteHeader{
+  margin: 0;
+  padding: 0;
 }
 
 input.func{
