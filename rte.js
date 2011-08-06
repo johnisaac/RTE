@@ -1,21 +1,5 @@
 function setRTE(rte){
-   var header, el;
-   
-   header = document.createElement("ul");
-   content = document.createElement("div")
-   content['id'] = "rteHeaderContent";
-   content["name"] = "rteHeaderContent";
-   
-   header.setAttribute("id","rteHeader");
-   header.setAttribute("name","rteHeader");
-   header["b"] = createEl("B", header);
-   header["i"] = createEl("I", header);
-   header["u"] = createEl("U", header);
-   header["U"] = createEl("-", header);
-   
-   rte.appendChild(header);
-   rte.appendChild(content);
-   content.setAttribute("contenteditable", true);
+   var header, el, sel;
    
    function triggerAction(event){
       var e = window.event || event;
@@ -41,12 +25,14 @@ function setRTE(rte){
       li = document.createElement("li");
       el = document.createElement("input");
       
-      el['id'] = "button_"+title;
-      el["name"] = "button_"+title;
-      el["value"] = title;
-      el["type"] = "button";
-      el["className"] = "func";      
+      el.id = "button_"+title;
+      el.name = "button_"+title;
+      el.value = title;
+      el.type = "button";
+      el.className = "func";  
+          
       li.appendChild(el);
+      
       addHandler( el,"click",triggerAction);
       header.appendChild(li);   
    }
@@ -61,6 +47,27 @@ function setRTE(rte){
       }
    }
    
+   header = document.createElement("ul");
+   content = document.createElement("div");
+   content.id = "rteHeaderContent";
+   content.name = "rteHeaderContent";
+   
+   header.setAttribute("id","rteHeader");
+   header.setAttribute("name","rteHeader");
+   
+   header.b = createEl("B", header);
+   header.i = createEl("I", header);
+   header.u = createEl("U", header);
+   header.U = createEl("-", header);
+   
+   rte.appendChild(header);
+   rte.appendChild(content);
+   
+   content.setAttribute("contenteditable", true);
+   
+   sel = window.getSelection();
+   sel.collapse(content,0);
+   
    // getContent
    // escapeHTML and return
    // setContent
@@ -70,7 +77,8 @@ function setRTE(rte){
       },
       
       setContent: function(content){
-         return rteHeaderContent.innerHTML = content;
+         rteHeaderContent.innerHTML = content;
       }
-   }
+   };
+   
 }
