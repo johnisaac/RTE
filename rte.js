@@ -8,32 +8,34 @@ function setRTE(rte, options ){
    
    function triggerAction(event){
       var e = window.event || event;
-      //document.getElementById(e.target).toggleClass("active");
       toggleClass( e.target.id, "active" );
       
       switch( e.target.id ){
-         case "button_B":
+         case "button_bold":
             document.execCommand( "bold", false, null);
             break;
-         case "button_I":   
+         case "button_italic":   
             document.execCommand( "italic", false, null);
             break;
-         case "button_U":
+         case "button_underline":
             document.execCommand( "underline", false, null);
             break;
-         case "button_-":
+         case "button_unorderedlist":
             document.execCommand("insertUnorderedList", false, null);
+            break;
+         case "button_code":
+            document.execCommand("foreColor", false, "grey")
             break;
       }
    }
    
-   function createEl(title, header){
+   function createEl(value, title, header){
       var li, el;
       li = document.createElement("li");
       el = document.createElement("input");
       
-      el.id = "button_"+title;
-      el.name = "button_"+title;
+      el.id = "button_"+value;
+      el.name = "button_"+value;
       el.type='button';
       el.value = title;
       el.className = "func ";  
@@ -89,10 +91,11 @@ function setRTE(rte, options ){
       header.setAttribute("id","rteHeader");
       header.setAttribute("name","rteHeader");
       
-      header.b = createEl("B", header);
-      header.i = createEl("I", header);
-      header.u = createEl("U", header);
-      header.U = createEl("-", header);
+      header.b = createEl( "bold","B", header);
+      header.i = createEl( "italic", "I", header);
+      header.u = createEl( "underline", "U", header);
+      header.U = createEl( "unorderedlist", "-", header);
+      header.code = createEl( "code", "\u201C", header);
       
       rte.appendChild(header);
    }

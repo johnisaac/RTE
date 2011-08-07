@@ -7,7 +7,7 @@
 
 #rteHeaderContent, #rtePreview{
   min-height: 140px;
-  font: 14px arial, sans-serif;
+  font: 13px arial, sans-serif;
   border: 1px solid grey;  
   clear:both;
   margin: 2px;
@@ -15,7 +15,6 @@
 
 #rteHeaderContent:focus{
   outline:none;
-  background-color: #FFFFE5;
 }
 
 #rteHeader li{
@@ -30,7 +29,7 @@
 }
 
 input.func{
-  font: 14px arial, sans-serif;
+  font: bold 13px arial, sans-serif;
   min-width: 30px;
   border: 1px solid grey;
   padding: 4px;
@@ -50,8 +49,12 @@ input.func{
   background: linear-gradient( top, #E3E3E3, 33%, #EEE, 66% ,#F9F9F9 );
 }
 
+#rteHeader li input.active{
+  
+}
+
 #sendEmail{
-  margin-left: -1px;
+  margin-left: 0px;
 }
 
 .right{
