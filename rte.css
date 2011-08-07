@@ -29,9 +29,12 @@
   padding: 0;
 }
 
-input.func{
-  font: bolder 14px arial, sans-serif;
-  width: 40px;
-  min-width: 40px;
-  max-width: 40px;
+#rteHeader li input.func{
+  font: 14px arial, sans-serif;
+  background
+}
+
+.right{
+  position: relative;
+  left: 340px;
 }

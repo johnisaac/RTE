@@ -1,5 +1,5 @@
-function setRTE(rte, previewVisible ){
-   var header, el, sel, preview;
+function setRTE(rte, options ){
+   var header, el, sel, preview, buttons;
    
    function triggerAction(event){
       var e = window.event || event;
@@ -37,6 +37,22 @@ function setRTE(rte, previewVisible ){
       header.appendChild(li);   
    }
    
+   function createButton(title, id, action, attrs ){
+      var button = document.createElement("input");
+      button.type='button';
+      button.value = title;
+      button.id = id;
+      button.name = id;
+      
+      console.log( attrs );
+      for( key in attrs ){
+         button.setAttribute( key, attrs[key] );
+      }
+      
+      rte.appendChild(button);
+      addHandler( button, "click", action);
+   }
+   
    function addHandler(element, type, handler){ 
       if (element.addEventListener){
          element.addEventListener(type, handler, false); 
@@ -47,41 +63,54 @@ function setRTE(rte, previewVisible ){
       }
    }
    
-   if ( previewVisible === true){
+   function sendEmail(){
+      console.log(" Send Email ");
+   }
+   
+   if ( options.showPreview === true){
       function showPreview(){
          preview.innerHTML = content.innerHTML;
       };
    }
    
-   header = document.createElement("ul");
-   content = document.createElement("div");
-   if ( previewVisible === true) preview = document.createElement("div");
+   if ( options.showHeader === true ){
+      header = document.createElement("ul");
+
+      header.setAttribute("id","rteHeader");
+      header.setAttribute("name","rteHeader");
+      
+      header.b = createEl("B", header);
+      header.i = createEl("I", header);
+      header.u = createEl("U", header);
+      header.U = createEl("-", header);
+      
+      rte.appendChild(header);
+   }
    
+   
+   content = document.createElement("div");
    content.id = "rteHeaderContent";
    content.name = "rteHeaderContent";
    
-   header.setAttribute("id","rteHeader");
-   header.setAttribute("name","rteHeader");
-   if ( previewVisible === true){
+   if ( options.showPreview === true) preview = document.createElement("div");
+   
+   if ( options.showPreview === true){
       preview.setAttribute("id","rtePreview");
       preview.setAttribute("name","rtePreview");
    }   
-   header.b = createEl("B", header);
-   header.i = createEl("I", header);
-   header.u = createEl("U", header);
-   header.U = createEl("-", header);
    
-   rte.appendChild(header);
    rte.appendChild(content);
    
-   if ( previewVisible === true){
+   if ( options.showButtons === true ){
+      createButton( "  Send  ", "sendEmail", sendEmail, { "class" : "right" } );
+   }
+   
+   if ( options.showPreview === true){
       rte.appendChild(preview);
       addHandler( rte, "keyup", showPreview);
    }
-   content.setAttribute("contenteditable", true);
    
-   sel = window.getSelection();
-   sel.collapse(content,0);
+   content.setAttribute("contenteditable", true);
    
    // getContent
    // escapeHTML and return
