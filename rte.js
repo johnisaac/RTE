@@ -8,7 +8,7 @@ function setRTE(rte, options ){
    
    function triggerAction(event){
       var e = window.event || event;
-      document.getElementById(e.target).toggleClass("active");
+      //document.getElementById(e.target).toggleClass("active");
       toggleClass( e.target.id, "active" );
       
       switch( e.target.id ){

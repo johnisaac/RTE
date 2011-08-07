@@ -44,8 +44,10 @@ input.func{
   text-shadow: 0px 1px 1px rgba(255,255,255,1);
 }
 
-#rteHeader li input.active{
-  background: lightgrey;
+#rteHeader li input:active{
+  background: -moz-linear-gradient( top, #E3E3E3, 33%, #EEE, 66% ,#F9F9F9 );
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgb(221, 221, 221)), to(rgb(255, 255, 255)));;
+  background: linear-gradient( top, #E3E3E3, 33%, #EEE, 66% ,#F9F9F9 );
 }
 
 #sendEmail{
