@@ -1,8 +1,15 @@
 function setRTE(rte, options ){
    var header, el, sel, preview, buttons;
    
+   function toggleClass( element, className ){
+      var classes = document.getElementById(element).getAttribute("class");
+      console.log(classes);
+   }
+   
    function triggerAction(event){
       var e = window.event || event;
+      document.getElementById(e.target).toggleClass("active");
+      toggleClass( e.target.id, "active" );
       
       switch( e.target.id ){
          case "button_B":
@@ -19,7 +26,7 @@ function setRTE(rte, options ){
             break;
       }
    }
-
+   
    function createEl(title, header){
       var li, el;
       li = document.createElement("li");
@@ -27,9 +34,9 @@ function setRTE(rte, options ){
       
       el.id = "button_"+title;
       el.name = "button_"+title;
+      el.type='button';
       el.value = title;
-      el.type = "button";
-      el.className = "func";  
+      el.className = "func ";  
           
       li.appendChild(el);
       
@@ -38,15 +45,18 @@ function setRTE(rte, options ){
    }
    
    function createButton(title, id, action, attrs ){
-      var button = document.createElement("input");
+      var button, key;
+      
+      button = document.createElement("input");
       button.type='button';
       button.value = title;
       button.id = id;
       button.name = id;
       
-      console.log( attrs );
-      for( key in attrs ){
-         button.setAttribute( key, attrs[key] );
+      for( key in attrs ) {
+         if ( attrs.hasOwnProperty(key) ){
+            button.setAttribute( key, attrs[key] );
+         }
       }
       
       rte.appendChild(button);
@@ -102,7 +112,7 @@ function setRTE(rte, options ){
    rte.appendChild(content);
    
    if ( options.showButtons === true ){
-      createButton( "  Send  ", "sendEmail", sendEmail, { "class" : "right" } );
+      createButton( "  Send  ", "sendEmail", sendEmail, { "class" : "func right" } );
    }
    
    if ( options.showPreview === true){
