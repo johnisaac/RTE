@@ -24,7 +24,7 @@ function RTE(rte, options ){
       var e, sel, contents, i, linkDialog;
       
       e = window.event || event;
-      toggleClass( e.target , "active" );
+      toggleClass( e.target , e.target.id+"_active" );
       
       switch( e.target.id ){
          case "button_bold":
@@ -38,6 +38,9 @@ function RTE(rte, options ){
             break;
          case "button_unorderedlist":
             document.execCommand( "insertUnorderedList", false, null);
+            break;
+         case "button_orderedlist":
+            document.execCommand( "insertOrderedList", false, null);
             break;
          case "button_code":
          // get the selected node and apply a css class to it
@@ -124,6 +127,7 @@ function RTE(rte, options ){
       header.i = createEl( "italic", "I", header);
       header.u = createEl( "underline", "U", header);
       header.U = createEl( "unorderedlist", "-", header);
+      header.O = createEl("orderedlist","1", header);
       header.code = createEl( "code", "\u201C", header);
       header.link = createEl("link","a", header);
       
