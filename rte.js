@@ -1,14 +1,30 @@
-function setRTE(rte, options ){
+function RTE(rte, options ){
    var header, el, sel, preview, buttons;
    
    function toggleClass( element, className ){
-      var classes = document.getElementById(element).getAttribute("class");
-      console.log(classes);
+      var classes, i, clPresent;
+      
+      classes = element.getAttribute("class").split(" ");
+      clPresent = false;
+      console.log( classes );
+      
+      for( i = 0; i < classes.length ; i++){
+         if ( classes[i] == className ){
+            clPresent = true;
+            delete classes[i];
+         }
+      }
+      
+      if ( clPresent === false) classes.push( className );
+      
+      element.setAttribute( "class", classes.join(" ") );
    }
    
    function triggerAction(event){
-      var e = window.event || event;
-      toggleClass( e.target.id, "active" );
+      var e, sel, contents, i, linkDialog;
+      
+      e = window.event || event;
+      toggleClass( e.target , "active" );
       
       switch( e.target.id ){
          case "button_bold":
@@ -21,10 +37,23 @@ function setRTE(rte, options ){
             document.execCommand( "underline", false, null);
             break;
          case "button_unorderedlist":
-            document.execCommand("insertUnorderedList", false, null);
+            document.execCommand( "insertUnorderedList", false, null);
             break;
          case "button_code":
-            document.execCommand("foreColor", false, "grey")
+         // get the selected node and apply a css class to it
+            sel = window.getSelection().getRangeAt(0);
+            document.execCommand( "indent", false, null);
+            
+//            console.log( sel.surroundContents(document.createElement("p")) );
+            break;
+         case "button_link":
+            linkDialog = "<div id='linkDialogue' name='linkDialogue'>"+
+                           "<input type='text' id='linkText' name='linkText' value='' />"+
+                           "<input type='text' id='linkValue' name='linkValue' value='' />"+
+                           "<input type='button' id='linkSave' name='linkSave' value='Save' />"+
+                           "<input type='button' id='linkCancel' name='linkCancel' value='Cancel' />"+
+                           "</div>";
+            return linkDialog;
             break;
       }
    }
@@ -38,7 +67,7 @@ function setRTE(rte, options ){
       el.name = "button_"+value;
       el.type='button';
       el.value = title;
-      el.className = "func ";  
+      el.className = "func";  
           
       li.appendChild(el);
       
@@ -96,6 +125,7 @@ function setRTE(rte, options ){
       header.u = createEl( "underline", "U", header);
       header.U = createEl( "unorderedlist", "-", header);
       header.code = createEl( "code", "\u201C", header);
+      header.link = createEl("link","a", header);
       
       rte.appendChild(header);
    }
