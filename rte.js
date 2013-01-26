@@ -128,8 +128,8 @@ function RTE(rte, options ){
       header.u = createEl( "underline", "U", header);
       header.U = createEl( "unorderedlist", "-", header);
       header.O = createEl("orderedlist","1", header);
-      header.code = createEl( "code", "\u201C", header);
-      header.link = createEl("link","a", header);
+//      header.code = createEl( "code", "\u201C", header);
+//      header.link = createEl("link","a", header);
       
       rte.appendChild(header);
    }
