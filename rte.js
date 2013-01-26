@@ -149,9 +149,9 @@ function RTE(rte, options ){
    rte.appendChild(content);
    
    if ( options.showButtons === true ){
-      createButton( "  Send  ", "sendEmail", sendEmail, { "class" : "func right" } );
+    //  createButton( "  Send  ", "sendEmail", sendEmail, { "class" : "func right" } );
    }
-   
+
    if ( options.showPreview === true){
       rte.appendChild(preview);
       addHandler( rte, "keyup", showPreview);
